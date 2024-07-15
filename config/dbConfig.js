@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 import mongoose from "mongoose";
-import { config } from "dotenv";
+import dotenv from "dotenv";
 
-config();
+dotenv.config();
 
 const connectDB = async () => {
     try {
