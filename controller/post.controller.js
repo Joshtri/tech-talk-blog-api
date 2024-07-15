@@ -6,7 +6,7 @@ export const getPost = async(req,res)=>{
     try {
         const postData =  await Post.find();
 
-        res.json(postData);
+        res.json({postData});
     } catch (error) {
         throw error;
     }
