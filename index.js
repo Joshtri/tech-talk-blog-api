@@ -1,28 +1,40 @@
 import express from "express";
 import cors from 'cors';
-
+import { config } from "dotenv";
 
 import postRoute from './routes/post.route.js';
 import connectDB from "./config/dbConfig.js";
-import { config } from "dotenv";
 
+// Load environment variables from .env file
 config();
+
+// Connect to MongoDB
 connectDB();
+
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000; // Fallback to port 3000 if PORT is not defined in .env
 
+// CORS configuration (allow all origins for development)
+const corsOptions = {
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+};
 
-
-app.use(cors());
+// Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
-app.use('/api',postRoute)
 
+// Routes
+app.use('/api', postRoute);
 
-
-app.listen(PORT,()=>{
-    console.log(`running on port ${PORT}`);
+// Error handler
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
 });
 
-
-
-
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
