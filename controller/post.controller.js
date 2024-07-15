@@ -6,7 +6,7 @@ export const getPost = async(req,res)=>{
     try {
         const postData =  await Post.find();
 
-        res.status(200).json(postData);
+        res.json(postData);
     } catch (error) {
         throw error;
     }
@@ -21,7 +21,7 @@ export const getPostById = async (req, res) => {
             return res.status(404).json({ message: "Post not found" });
         }
 
-        res.status(200).json(post);
+        res.json(post);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
