@@ -28,9 +28,10 @@ app.use(express.json());
 const getPost = async (req, res) => {
     try {
         const postData = await Post.find();
-        res.json({ postData });
+        res.json(postData);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        throw error;
+        // res.status(500).json({ message: error.message });
     }
 };
 
@@ -43,7 +44,7 @@ const getPostById = async (req, res) => {
             return res.status(404).json({ message: "Post not found" });
         }
 
-        res.json({post});
+        res.json(post);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
