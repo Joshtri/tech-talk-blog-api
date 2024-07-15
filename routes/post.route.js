@@ -9,5 +9,8 @@ router.get('/post/:id', postController.getPostById);
 router.get('/test', (req,res)=>{
     res.send('test anjing');
 });
+router.get("/", (req, res) => {
+    res.json("Hello");
+})
 
 export default router;

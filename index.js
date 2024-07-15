@@ -17,8 +17,8 @@ const PORT = process.env.PORT || 3000; // Fallback to port 3000 if PORT is not d
 // CORS configuration (allow all origins for development)
 const corsOptions = {
     origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: ["POST", "GET"],
+    credentials: true
 };
 
 // Middleware
