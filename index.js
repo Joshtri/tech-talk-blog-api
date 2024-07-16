@@ -4,6 +4,8 @@ import { config } from "dotenv";
 import Post from "./models/post.model.js"; // Ubah path ini sesuai struktur proyek Anda
 import connectDB from "./config/dbConfig.js";
 
+import postRoute from './routes/post.route.js';
+
 // Load environment variables from .env file
 config();
 
@@ -25,38 +27,16 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Controller functions
-const getPost = async (req, res) => {
-    try {
-        const postData = await Post.find();
-        res.json(postData);
-    } catch (error) {
-        throw error;
-        // res.status(500).json({ message: error.message });
-    }
-};
 
-const getPostById = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const post = await Post.findById(id);
 
-        if (!post) {
-            return res.status(404).json({ message: "Post not found" });
-        }
 
-        res.json(post);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
+// Routes
+app.use('/api',postRoute)
 
 app.get('/',(req,res)=>{
     res.json("hello");
 })
 
-// Routes
-app.get('/api/post', getPost);
-app.get('/api/post/:id', getPostById);
 
 // Error handler
 app.use((err, req, res, next) => {
