@@ -11,3 +11,12 @@ Content-Type: application/json
     "comment_user": "keren👍",
     "postId": "6694de685e80eb615ac9f6e8"
 }
+
+###
+POST http://localhost:5000/api/subscription
+Content-Type: application/json
+
+{
+    "email_subscription": "john.doe@example.com",
+    "whats_app_subscription": "+1234567890"
+}
