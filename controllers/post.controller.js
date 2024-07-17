@@ -4,7 +4,7 @@ import Post from "../models/post.model.js";
 // Controller functions
 export const getPost = async (req, res) => {
     try {
-        const postData = await Post.find();
+        const postData = await Post.find({ status_post: 'published' });
         res.json(postData);
     } catch (error) {
         throw error;
