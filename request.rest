@@ -1,0 +1,13 @@
+# Get comments by postId
+GET http://localhost:5000/api/comment/6694de685e80eb615ac9f6e8
+Accept: application/json
+
+
+### Post a new comment
+POST http://localhost:5000/api/comment
+Content-Type: application/json
+
+{
+    "comment_user": "keren👍",
+    "postId": "6694de685e80eb615ac9f6e8"
+}

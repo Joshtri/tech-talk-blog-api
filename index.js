@@ -5,6 +5,7 @@ import Post from "./models/post.model.js"; // Ubah path ini sesuai struktur proy
 import connectDB from "./config/dbConfig.js";
 
 import postRoute from './routes/post.route.js';
+import commentRoute from './routes/comment.route.js';
 
 // Load environment variables from .env file
 config();
@@ -31,7 +32,7 @@ app.use(express.json());
 
 
 // Routes
-app.use('/api',postRoute)
+app.use('/api',postRoute,commentRoute)
 
 app.get('/',(req,res)=>{
     res.json("hello");
