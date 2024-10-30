@@ -7,6 +7,7 @@ import connectDB from "./config/dbConfig.js";
 import postRoute from './routes/post.route.js';
 import commentRoute from './routes/comment.route.js';
 import subscriptionRoute from './routes/subscription.route.js';
+import likeRoute from "./routes/like.route.js";
 
 // Load environment variables from .env file
 config();
@@ -33,7 +34,7 @@ app.use(express.json());
 
 
 // Routes
-app.use('/api',postRoute,commentRoute,subscriptionRoute)
+app.use('/api',postRoute,commentRoute,subscriptionRoute,likeRoute)
 
 app.get('/',(req,res)=>{
     res.json("hello");
