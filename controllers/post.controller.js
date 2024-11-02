@@ -26,3 +26,30 @@ export const getPostById = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+export const getPostByIdOrSlug = async (req, res) => {
+    try {
+        const { idOrSlug } = req.params;
+        let post;
+
+        // Cek apakah parameter adalah ObjectId yang valid
+        if (mongoose.Types.ObjectId.isValid(idOrSlug)) {
+            post = await Post.findById(idOrSlug);
+        } else {
+            // Jika bukan ObjectId, anggap parameter sebagai slug (title)
+            const formattedTitle = idOrSlug.toLowerCase().replace(/-/g, ' ');
+            post = await Post.findOne({ title: formattedTitle });
+        }
+
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        res.json(post);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+
