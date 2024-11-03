@@ -1,6 +1,7 @@
 import express from "express";
 import cors from 'cors';
 import { config } from "dotenv";
+import prerender from 'prerender-node'; // Import Prerender.io middleware
 import Post from "./models/post.model.js"; // Ubah path ini sesuai struktur proyek Anda
 import connectDB from "./config/dbConfig.js";
 
@@ -29,17 +30,16 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Controller functions
-
-
+// Prerender.io middleware setup
+prerender.set('prerenderToken', `${process.env.PRERENDER_TOKEN}`); // Ganti dengan token Prerender.io Anda
+app.use(prerender); // Gunakan middleware Prerender.io sebelum rute lainnya
 
 // Routes
-app.use('/api',postRoute,commentRoute,subscriptionRoute,likeRoute)
+app.use('/api', postRoute, commentRoute, subscriptionRoute, likeRoute);
 
-app.get('/',(req,res)=>{
+app.get('/', (req, res) => {
     res.json("hello");
-})
-
+});
 
 // Error handler
 app.use((err, req, res, next) => {
