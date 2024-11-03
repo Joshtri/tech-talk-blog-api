@@ -9,9 +9,22 @@ import postRoute from './routes/post.route.js';
 import commentRoute from './routes/comment.route.js';
 import subscriptionRoute from './routes/subscription.route.js';
 import likeRoute from "./routes/like.route.js";
+import { loginToFirebase } from './config/firebaseConfig.js';
 
 // Load environment variables from .env file
 config();
+
+
+
+
+// Login ke Firebase saat server mulai
+loginToFirebase().then(() => {
+    console.log('Server connected to Firebase');
+  }).catch((error) => {
+    console.error('Firebase connection failed:', error);
+    process.exit(1); // Keluar jika gagal login
+  });
+  
 
 // Connect to MongoDB
 connectDB();
