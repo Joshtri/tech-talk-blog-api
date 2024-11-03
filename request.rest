@@ -20,3 +20,6 @@ Content-Type: application/json
     "email_subscription": "john.doe@example.com",
     "whats_app_subscription": "+1234567890"
 }
+
+###
+GET http://localhost:5000/api/post/mengenal-sistem-operasi-so
