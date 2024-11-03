@@ -23,3 +23,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/api/post/mengenal-sistem-operasi-so
+
+
+###
+GET http://localhost:5000/api/voice

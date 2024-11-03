@@ -5,11 +5,15 @@ import prerender from 'prerender-node'; // Import Prerender.io middleware
 import Post from "./models/post.model.js"; // Ubah path ini sesuai struktur proyek Anda
 import connectDB from "./config/dbConfig.js";
 
+
+import { scheduleVoiceDeletion } from './controllers/voice.controller.js'; // Adjust path as needed
+
 import postRoute from './routes/post.route.js';
 import commentRoute from './routes/comment.route.js';
 import subscriptionRoute from './routes/subscription.route.js';
 import likeRoute from "./routes/like.route.js";
 import { loginToFirebase } from './config/firebaseConfig.js';
+import voiceRoute from "./routes/voice.route.js";
 
 // Load environment variables from .env file
 config();
@@ -38,6 +42,7 @@ const corsOptions = {
     methods: ["POST", "GET"],
     credentials: true
 };
+scheduleVoiceDeletion();
 
 // Middleware
 app.use(cors(corsOptions));
@@ -48,7 +53,7 @@ prerender.set('prerenderToken', `${process.env.PRERENDER_TOKEN}`); // Ganti deng
 app.use(prerender); // Gunakan middleware Prerender.io sebelum rute lainnya
 
 // Routes
-app.use('/api', postRoute, commentRoute, subscriptionRoute, likeRoute);
+app.use('/api', voiceRoute ,postRoute, commentRoute, subscriptionRoute, likeRoute);
 
 app.get('/', (req, res) => {
     res.json("hello");
