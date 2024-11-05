@@ -38,3 +38,19 @@ export const postComment = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+export const countCommentById = async(req,res)=>{
+    try {
+
+        const {id}= req.params;
+        const totalComment = await Comment.countDocuments({
+            postId:id
+        });
+
+        res.status(201).json(totalComment);
+
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}

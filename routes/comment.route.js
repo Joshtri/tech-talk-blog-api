@@ -7,5 +7,7 @@ const router = express.Router();
 router.get('/comment/:id', commentController.getCommentByIdPost);
 router.post('/comment', commentController.postComment);
 
+router.get('/comment/count/:id', commentController.countCommentById);
+
 
 export default router;
