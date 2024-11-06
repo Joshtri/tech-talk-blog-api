@@ -1,31 +1,21 @@
+// server.js
+
 import express from "express";
 import cors from 'cors';
 import { config } from "dotenv";
 import prerender from 'prerender-node';
-import Post from "./models/post.model.js"; // Sesuaikan dengan struktur proyek Anda
 import connectDB from "./config/dbConfig.js";
-import { Server } from "socket.io"; // Import Socket.IO
+import { Server } from "socket.io";
+import http from 'http'; // Ditambahkan untuk membuat server HTTP
 
-import { scheduleVoiceDeletion } from './controllers/voice.controller.js';
 import postRoute from './routes/post.route.js';
 import commentRoute from './routes/comment.route.js';
 import subscriptionRoute from './routes/subscription.route.js';
 import likeRoute from "./routes/like.route.js";
-import { loginToFirebase } from './config/firebaseConfig.js';
 import voiceRoute from "./routes/voice.route.js";
 
 // Load environment variables from .env file
 config();
-
-// Login ke Firebase saat server mulai
-loginToFirebase()
-  .then(() => {
-    console.log('Server connected to Firebase');
-  })
-  .catch((error) => {
-    console.error('Firebase connection failed:', error);
-    process.exit(1);
-  });
 
 // Connect to MongoDB
 connectDB();
@@ -35,11 +25,10 @@ const PORT = process.env.PORT || 3000;
 
 // CORS configuration
 const corsOptions = {
-  origin: '*',
-  methods: ["POST", "GET"],
+  origin: 'https://tech-talks-blog.com',
+  methods: ["GET", "POST"],
   credentials: true
 };
-scheduleVoiceDeletion();
 
 // Middleware
 app.use(cors(corsOptions));
@@ -62,33 +51,40 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
+// Create HTTP server
+const server = http.createServer(app);
+
 // Start server
-const server = app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
+// Initialize Socket.IO server
 const io = new Server(server, {
-    cors: {
-      origin: "https://tech-talks-blog.com",
-      methods: ["GET", "POST"]
-    },
-    allowEIO3: true // Tambahkan jika klien menggunakan protokol EIO v3
-  });
-  
+  cors: {
+    origin: "https://tech-talks-blog.com",
+    methods: ["GET", "POST"],
+    credentials: true
+  }
+});
 
 io.on("connection", (socket) => {
-    console.log("User connected:", socket.id);
-  
-    // Listen for 'sendMessage' event from clients
-    socket.on("sendMessage", (message) => {
-      console.log("Received message:", message);
-      // Emit the message to all connected clients
-      io.emit("receiveMessage", message); // Pastikan menggunakan `io.emit` untuk menyiarkan ke semua klien
-    });
-  
-    // Handle user disconnect
-    socket.on("disconnect", () => {
-      console.log("User disconnected:", socket.id);
-    });
+  console.log("User connected:", socket.id);
+
+  // Listen for 'sendMessage' event from clients
+  socket.on("sendMessage", (message) => {
+    console.log("Received message:", message);
+    // Emit the message to all connected clients
+    io.emit("receiveMessage", message);
   });
-  
+
+  // Handle user disconnect
+  socket.on("disconnect", (reason) => {
+    console.log(`User disconnected (${socket.id}): ${reason}`);
+  });
+
+  // Handle errors
+  socket.on("error", (error) => {
+    console.error(`Socket error (${socket.id}):`, error);
+  });
+});
