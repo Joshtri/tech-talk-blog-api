@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getStorage } from 'firebase/storage';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import dotenv from 'dotenv';
+import { getDatabase } from "firebase/database";
 
 dotenv.config();
 
@@ -30,8 +31,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 const auth = getAuth(app);
+const database = getDatabase(app);
 
-export { auth, storage };
+export { auth, storage, database};
 
 
 // Login ke Firebase saat aplikasi mulai
