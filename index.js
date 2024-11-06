@@ -6,8 +6,9 @@ import { config } from "dotenv";
 import prerender from 'prerender-node';
 import connectDB from "./config/dbConfig.js";
 import { Server } from "socket.io";
-import http from 'http'; // Ditambahkan untuk membuat server HTTP
+import http from 'http'; // Untuk membuat server HTTP
 
+// Import route dan middleware lainnya
 import postRoute from './routes/post.route.js';
 import commentRoute from './routes/comment.route.js';
 import subscriptionRoute from './routes/subscription.route.js';
@@ -25,9 +26,9 @@ const PORT = process.env.PORT || 3000;
 
 // CORS configuration
 const corsOptions = {
-  origin: 'https://tech-talks-blog.com',
+  origin: 'https://tech-talks-blog.com', // Asal permintaan klien Anda
   methods: ["GET", "POST"],
-  credentials: true
+  credentials: true, // Mengizinkan pengiriman kredensial
 };
 
 // Middleware
@@ -62,10 +63,15 @@ server.listen(PORT, () => {
 // Initialize Socket.IO server
 const io = new Server(server, {
   cors: {
-    origin: "https://tech-talks-blog.com",
+    origin: "https://tech-talks-blog.com", // Asal permintaan klien Anda
     methods: ["GET", "POST"],
-    credentials: true
-  }
+    credentials: true, // Mengizinkan pengiriman kredensial
+  },
+});
+
+// Manually set headers to include 'Access-Control-Allow-Credentials: true'
+io.engine.on("headers", (headers, request) => {
+  headers["Access-Control-Allow-Credentials"] = "true";
 });
 
 io.on("connection", (socket) => {
