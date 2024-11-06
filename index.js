@@ -67,12 +67,12 @@ const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-// WebSocket setup with Socket.IO
 const io = new Server(server, {
     cors: {
-      origin: "https://tech-talks-blog.com", // Sesuaikan dengan domain frontend Anda
+      origin: "https://tech-talks-blog.com",
       methods: ["GET", "POST"]
-    }
+    },
+    allowEIO3: true // Tambahkan jika klien menggunakan protokol EIO v3
   });
   
 
