@@ -69,11 +69,12 @@ const server = app.listen(PORT, () => {
 
 // WebSocket setup with Socket.IO
 const io = new Server(server, {
-  cors: {
-    origin: '*',
-    methods: ['GET', 'POST']
-  }
-});
+    cors: {
+      origin: "https://tech-talks-blog.com", // Sesuaikan dengan domain frontend Anda
+      methods: ["GET", "POST"]
+    }
+  });
+  
 
 io.on("connection", (socket) => {
     console.log("User connected:", socket.id);
