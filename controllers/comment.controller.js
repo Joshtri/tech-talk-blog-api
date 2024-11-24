@@ -9,6 +9,7 @@ export const getCommentByIdPost = async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
+    
 };
 
 export const postComment = async (req, res) => {
@@ -18,7 +19,7 @@ export const postComment = async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
-};
+}
 
 export const countCommentById = async (req, res) => {
     try {
