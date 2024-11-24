@@ -1,23 +1,15 @@
-import Subscription from "../models/subscription.model.js";
+// controllers/subscription.controller.js
+import { postSubscriptionService } from "../services/subscription.service.js";
 
-// Controller function to post a new comment
 export const postSubscription = async (req, res) => {
     try {
         const { email_subscription, whats_app_subscription } = req.body;
 
-        // Create a new comment
-        const newSubscription = new Subscription({
-            email_subscription,
-            whats_app_subscription,
-            
-        });
+        // Panggil service untuk membuat subscription baru
+        const savedSubscription = await postSubscriptionService({ email_subscription, whats_app_subscription });
 
-        // Save the new comment to the database
-        const savedSubscription = await newSubscription.save();
-
-        // Send a success response
         res.status(201).json(savedSubscription);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(400).json({ message: error.message });
     }
 };
