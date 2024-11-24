@@ -1,56 +1,41 @@
-import Like from '../models/like.model.js';
-// import Post from '../models/post.model.js';
+// controllers/like.controller.js
+import { likePostService, unlikePostService, getLikeCountByPostIdService } from "../services/like.service.js";
 
-// Controller untuk menyukai postingan
 export const likePost = async (req, res) => {
-  try {
-    const { postId } = req.body;
+    try {
+        const { postId } = req.body;
 
-    // Buat entitas Like baru
-    const like = new Like({ postId });
-    await like.save();
+        // Panggil service untuk menyukai postingan
+        const likeCount = await likePostService({ postId });
 
-    // Hitung jumlah like terbaru
-    const likeCount = await Like.countDocuments({ postId });
-
-    res.status(201).json({ message: 'Post liked successfully', likeCount });
-  } catch (error) {
-    console.error('Error in likePost:', error);
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// Controller untuk membatalkan suka pada postingan
-export const unlikePost = async (req, res) => {
-  try {
-    const { postId } = req.body;
-
-    // Hapus satu entitas Like terkait dengan postId
-    const deletedLike = await Like.findOneAndDelete({ postId });
-    if (!deletedLike) {
-      return res.status(404).json({ message: 'No likes found to remove' });
+        res.status(201).json({ message: "Post liked successfully", likeCount });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
     }
-
-    // Hitung jumlah like terbaru
-    const likeCount = await Like.countDocuments({ postId });
-
-    res.status(200).json({ message: 'Post unliked successfully', likeCount });
-  } catch (error) {
-    console.error('Error in unlikePost:', error);
-    res.status(500).json({ message: error.message });
-  }
 };
 
-// Controller untuk mendapatkan jumlah like
+export const unlikePost = async (req, res) => {
+    try {
+        const { postId } = req.body;
+
+        // Panggil service untuk membatalkan suka
+        const likeCount = await unlikePostService({ postId });
+
+        res.status(200).json({ message: "Post unliked successfully", likeCount });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
 export const getLikeCountByPostId = async (req, res) => {
-  try {
-    const { postId } = req.params;
+    try {
+        const { postId } = req.params;
 
-    const likeCount = await Like.countDocuments({ postId });
+        // Panggil service untuk mendapatkan jumlah like
+        const likeCount = await getLikeCountByPostIdService(postId);
 
-    res.status(200).json({ likeCount });
-  } catch (error) {
-    console.error('Error in getLikeCountByPostId:', error);
-    res.status(500).json({ message: error.message });
-  }
+        res.status(200).json({ likeCount });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
 };
