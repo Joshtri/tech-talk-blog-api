@@ -1,56 +1,31 @@
-import Comment from "../models/comment.model.js";
-import { faker } from '@faker-js/faker';
+// controllers/comment.controller.js
+import { getCommentsByPostIdService, postCommentService, countCommentsByPostIdService } from "../services/comment.service.js";
 
-
-// Controller functions
 export const getCommentByIdPost = async (req, res) => {
     try {
-        const { id } = req.params; // Extract postId from the request parameters
-        const postData = await Comment.find({ postId: id });
+        const { id } = req.params;
+        const postData = await getCommentsByPostIdService(id);
         res.json(postData);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(400).json({ message: error.message });
     }
 };
 
-
-// Controller function to post a new comment
 export const postComment = async (req, res) => {
     try {
-        const { comment_user, postId } = req.body;
-
-        // Generate default comment_user name if not provided
-        const username = req.body.username || faker.internet.userName();
-
-        // Create a new comment
-        const newComment = new Comment({
-            comment_user,
-            username,
-            postId
-        });
-
-        // Save the new comment to the database
-        const savedComment = await newComment.save();
-
-        // Send a success response
+        const savedComment = await postCommentService(req.body);
         res.status(201).json(savedComment);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(400).json({ message: error.message });
     }
 };
 
-export const countCommentById = async(req,res)=>{
+export const countCommentById = async (req, res) => {
     try {
-
-        const {id}= req.params;
-        const totalComment = await Comment.countDocuments({
-            postId:id
-        });
-
-        res.status(201).json(totalComment);
-
-
+        const { id } = req.params;
+        const totalComment = await countCommentsByPostIdService(id);
+        res.status(200).json({ count: totalComment });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(400).json({ message: error.message });
     }
-}
+};

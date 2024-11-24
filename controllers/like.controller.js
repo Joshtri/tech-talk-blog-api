@@ -1,5 +1,5 @@
 import Like from '../models/like.model.js';
-import Post from '../models/post.model.js';
+// import Post from '../models/post.model.js';
 
 // Controller untuk menyukai postingan
 export const likePost = async (req, res) => {

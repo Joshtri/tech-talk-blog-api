@@ -15,8 +15,6 @@ export const getMessages = async (req, res) => {
 };
 
 
-
-
 // Fungsi untuk menghasilkan dan mengembalikan userId baru
 export const getUserId = async (req, res) => {
   try {
