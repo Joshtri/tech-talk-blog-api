@@ -1,5 +1,5 @@
 // controllers/post.controller.js
-import { getPostsService, getPostByIdService, getPostPreviewService } from "../services/post.service.js";
+import { getPostsService, getPostByIdService, getPostPreviewService } from "../services/post.public.service.js";
 
 export const getPost = async (req, res) => {
     try {

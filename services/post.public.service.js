@@ -1,6 +1,6 @@
 // services/post.service.js
 import { validateIdOrSlug } from "../validations/post.validation.js";
-import { findAllPublishedPosts, findPostById, findPostBySlug } from "../repositories/post.repository.js";
+import { findAllPublishedPosts, findPostById, findPostBySlug } from "../repositories/post.public.repository.js";
 
 export const getPostsService = async () => {
     return await findAllPublishedPosts();

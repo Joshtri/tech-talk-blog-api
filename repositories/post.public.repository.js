@@ -17,3 +17,5 @@ export const findPostById = async (id) => {
 export const findPostBySlug = async (slug) => {
     return await Post.findOne({ slug });
 };
+
+  
