@@ -1,5 +1,6 @@
 import express from "express";
 import * as postController from "../controllers/post.cms.controller.js";
+import upload from '../config/multerConfig.js'
 
 const postCmsRoute = express.Router();
 
@@ -7,15 +8,15 @@ const postCmsRoute = express.Router();
 postCmsRoute.get("/post", postController.getAllPosts);
 
 // Get a specific post by ID
-postCmsRoute.get("/post/:postId", postController.getPostById);
+postCmsRoute.get("/post/:id", postController.getPostById);
 
 // Create a new post
-postCmsRoute.post("/post", postController.createPost);
+postCmsRoute.post("/post", upload.single('coverImage'), postController.createPost);
 
 // Update an existing post
-postCmsRoute.put("/post/:postId", postController.updatePost);
+postCmsRoute.put("/post/:id", postController.updatePost);
 
 // Delete a post by ID
-postCmsRoute.delete("/post/:postId", postController.deletePost);
+postCmsRoute.delete("/post/:id", postController.deletePost);
 
 export default postCmsRoute;
