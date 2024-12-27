@@ -14,7 +14,7 @@ postCmsRoute.get("/post/:id", postController.getPostById);
 postCmsRoute.post("/post", upload.single('coverImage'), postController.createPost);
 
 // Update an existing post
-postCmsRoute.put("/post/:id", postController.updatePost);
+postCmsRoute.put("/post/:id", upload.single('coverImage'), postController.updatePost);
 
 // Delete a post by ID
 postCmsRoute.delete("/post/:id", postController.deletePost);
