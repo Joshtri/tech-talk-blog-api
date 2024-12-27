@@ -111,8 +111,10 @@ export const updatePost = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
+    console.log(`berhasil update data`);
     res.status(200).json(updatedPost);
   } catch (error) {
+    console.log(`gagal update data ${error}`);
     res.status(500).json({ error: error.message });
   }
 };
