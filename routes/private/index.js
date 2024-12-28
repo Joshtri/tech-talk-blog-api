@@ -1,6 +1,6 @@
 import express from "express";
-import postCmsRoute from "./post.cms.route.js"; // Import post CMS routes
-import subscriptionCmsRoute from "./subscription.cms.route.js"; // Import subscription CMS routes
+import postCmsRoute from "./post.private.route.js"; // Import post CMS routes
+import subscriptionCmsRoute from "./subscription.private.route.js"; // Import subscription CMS routes
 
 const privateRoutes = express.Router();
 
