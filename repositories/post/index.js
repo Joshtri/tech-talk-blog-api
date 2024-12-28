@@ -1,4 +1,4 @@
-import postCmsRepository from './post.cms.repository.js';
-import postPublicRepository from './post.public.repository.js';
+import postPrivateRepository from "./post.private.repository.js";
+import postPublicRepository from "./post.public.repository.js";
 
-export { postCmsRepository, postPublicRepository };
+export { postPrivateRepository, postPublicRepository };
