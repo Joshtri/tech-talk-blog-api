@@ -7,14 +7,20 @@ import connectDB from "./config/dbConfig.js";
 
 import { scheduleVoiceDeletion } from './controllers/voice.controller.js'; // Adjust path as needed
 
-import postPublicRoute from './routes/post.public.route.js';
-import commentRoute from './routes/comment.route.js';
-import subscriptionRoute from './routes/subscription.route.js';
-import likeRoute from "./routes/like.route.js";
+// import postPublicRoute from './routes/public/post.public.route.js';
+// import commentRoute from './routes/comment.route.js';
+// import subscriptionRoute from './routes/public/subscription.public.route.js';
+
+// import likeRoute from "./routes/like.route.js";
 import { loginToFirebase } from './config/firebaseConfig.js';
 import voiceRoute from "./routes/voice.route.js";
-import chatRoute from "./routes/chat.route.js";
-import postCmsRoute from "./routes/post.cms.route.js";
+// import chatRoute from "./routes/chat.route.js";
+
+// Import routes
+import publicRoutes from "./routes/public/index.js";
+import privateRoutes from "./routes/private/index.js";
+
+// import postCmsRoute from "./routes/private/post.cms.route.js";
 
 // Load environment variables from .env file
 config();
@@ -50,10 +56,17 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 
-app.use('/api/cms', postCmsRoute); // CMS routes
+// Routes for private (CMS) API
+app.use("/api/cms", privateRoutes);
+
+// Routes for public API
+app.use("/api", publicRoutes);
+
+
+// app.use('/api/cms', postCmsRoute); // CMS routes
 
 // Routes
-app.use('/api', voiceRoute ,postPublicRoute, commentRoute, subscriptionRoute, likeRoute,chatRoute);
+app.use('/api', voiceRoute);
 
 app.get('/', (req, res) => {
     res.json("hello");
