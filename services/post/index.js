@@ -1,4 +1,4 @@
-import postCmsService from "./post.cms.service.js";
+import postPrivateService from "./post.private.service.js";
 import postPublicService from "./post.public.service.js";
 
-export { postCmsService, postPublicService };
+export { postPrivateService, postPublicService };
