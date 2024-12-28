@@ -1,12 +1,12 @@
 import express from "express";
-import subscriptionCmsController from "../../controllers/subscription/subscription.cms.controller.js";
+import {subscriptionPrivateController} from "../../controllers/subscription/index.js";
 
 const subscriptionCmsRoute = express.Router();
 
 // Rute untuk mengambil semua subscription
-subscriptionCmsRoute.get("/subscription", subscriptionCmsController.getAllSubscriptions);
+subscriptionCmsRoute.get("/subscription", subscriptionPrivateController.getAllSubscriptions);
 
 // Rute untuk mendapatkan total subscription
-subscriptionCmsRoute.get("/subscription-total", subscriptionCmsController.getTotalSubscriptions);
+subscriptionCmsRoute.get("/subscription-total", subscriptionPrivateController.getTotalSubscriptions);
 
 export default subscriptionCmsRoute;
