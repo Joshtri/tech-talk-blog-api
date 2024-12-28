@@ -1,4 +1,5 @@
-import postCmsController from "./post.cms.controller.js";
+import postPrivateController from "./post.private.controller.js";
 import postPublicController from "./post.public.controller.js";
 
-export { postCmsController, postPublicController };
+export { postPrivateController, postPublicController };
+
