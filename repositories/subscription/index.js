@@ -1,4 +1,4 @@
-import subscriptionCmsRepository from './subscription.cms.repository.js';
-import subscriptionPublicRepository from './subscription.public.repository.js';
+import subscriptionPrivateRepository from "./subscription.private.repository.js";
+import subscriptionPublicRepository from "./subscription.public.repository.js";
 
-export { subscriptionCmsRepository, subscriptionPublicRepository };
+export { subscriptionPrivateRepository, subscriptionPublicRepository };
