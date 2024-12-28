@@ -4,9 +4,9 @@ import subscriptionCmsController from "../../controllers/subscription/subscripti
 const subscriptionCmsRoute = express.Router();
 
 // Rute untuk mengambil semua subscription
-subscriptionCmsRoute.get("/", subscriptionCmsController.getAllSubscriptions);
+subscriptionCmsRoute.get("/subscription", subscriptionCmsController.getAllSubscriptions);
 
 // Rute untuk mendapatkan total subscription
-subscriptionCmsRoute.get("/total", subscriptionCmsController.getTotalSubscriptions);
+subscriptionCmsRoute.get("/subscription-total", subscriptionCmsController.getTotalSubscriptions);
 
 export default subscriptionCmsRoute;
