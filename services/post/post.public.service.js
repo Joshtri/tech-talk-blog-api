@@ -1,7 +1,7 @@
 // services/post.service.js
 import { validateIdOrSlug } from "../../validations/post.validation.js";
 // import { findAllPublishedPosts, findPostById, findPostBySlug } from "../repositories/post.public.repository.js";
-import { postPublicRepository } from '../../repositories/post/index.js'
+import { postPublicRepository } from "../../repositories/post/index.js";
 
 const getPostsService = async () => {
     return await postPublicRepository.findAllPublishedPosts();
@@ -41,8 +41,8 @@ const getPostPreviewService = async (slug) => {
     return post;
 };
 
-export default{
+export default {
     getPostsService,
     getPostByIdService,
     getPostPreviewService
-}
+};
