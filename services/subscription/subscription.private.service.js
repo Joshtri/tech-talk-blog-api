@@ -20,7 +20,12 @@ const getTotalSubscriptions = async () => {
   }
 };
 
+const updateExistingSubscription = async (id, postData) => {
+  return await subscriptionPrivateRepository.updateSubscription(id, postData);
+};
+
 export default {
   getAllSubscriptions,
   getTotalSubscriptions,
+  updateExistingSubscription
 };
