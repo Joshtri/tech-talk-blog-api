@@ -22,7 +22,14 @@ const getAllSubscription = async()=>{
     }
 };
 
+// Update an existing subscription.
+const updateSubscription = async (id, postData) => {
+    return await Subscription.findByIdAndUpdate(id, postData, { new: true });
+  };
+  
+
 export default {
     getAllSubscription,
-    getTotalSubscription
+    getTotalSubscription,
+    updateSubscription
 };
