@@ -12,6 +12,16 @@ const getTotalSubscription = async () => {
     }
 };
 
+// Get a subscription by its ID
+const findSubscriptionById = async (id) => {
+    return await Subscription.findById(id);
+};
+
+const createSubscription = async(subscriptionData)=>{
+    return await Subscription.create(subscriptionData);
+};
+  
+
 const getAllSubscription = async()=>{
     try {
         const subscriptions = await Subscription.find();
@@ -25,11 +35,18 @@ const getAllSubscription = async()=>{
 // Update an existing subscription.
 const updateSubscription = async (id, postData) => {
     return await Subscription.findByIdAndUpdate(id, postData, { new: true });
-  };
+};
+
+const deleteSubscription = async(id) =>{
+    return await Subscription.findByIdAndDelete(id);
+};
   
 
 export default {
     getAllSubscription,
     getTotalSubscription,
-    updateSubscription
+    createSubscription,
+    updateSubscription,
+    deleteSubscription,
+    findSubscriptionById
 };
