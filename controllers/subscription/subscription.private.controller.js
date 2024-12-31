@@ -25,6 +25,9 @@ const getTotalSubscriptions = async (req, res) => {
 
 
 
+
+
+
 const sharePostToSubscriptions = async (req, res) => {
   const { slug, title, link } = req.body;
 
@@ -48,9 +51,89 @@ const sharePostToSubscriptions = async (req, res) => {
   }
 };
 
+const updateSubscription = async (req, res) => {
+  const { id } = req.params;
+  const subscriptionData = req.body;
+
+  try {
+    // Handle cover image replacement if a new file is uploaded
+    // if (req.file) {
+    //   postData.coverImageUrl = await replaceCoverImage(postData.coverImageUrl, req.file);
+    // }
+
+    const updatedSubscription = await subscriptionPrivateService.updateExistingSubscription(id, subscriptionData);
+    if (!updatedSubscription) {
+      return res.status(404).json({ message: "Subscription not found" });
+    }
+
+    console.log(`berhasil update data : ${updatedSubscription}`);
+    res.status(200).json(updatedSubscription);
+  } catch (error) {
+    console.log(`gagal update data ${error}`);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+/**
+ * Delete a post by ID
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object
+ */
+const deleteSubscription = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const subscription = await subscriptionPrivateService.getSubscriptionByIdForCMS(id);
+    if (!subscription) {
+      return res.status(404).json({ message: "Subscription not found" });
+    }
+
+    // if (post.coverImageUrl) {
+    //   try {
+    //     await deleteFileFromFirebase(post.coverImageUrl);
+    //   } catch (fileError) {
+    //     console.error("Failed to delete file from Firebase:", fileError.message);
+    //   }
+    // }
+
+    const deletedSubscription = await subscriptionPrivateService.deleteSubscriptionById(id);
+    if (!deletedSubscription) {
+      return res.status(404).json({ message: "Subscription not found" });
+    }
+
+    res.status(200).json({ message: "Subscription and associated file deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const createSubscription = async (req, res) => {
+  try {
+    const { email_subscription, whats_app_subscription } = req.body;
+
+    // Validate input
+    if (!email_subscription || !whats_app_subscription) {
+      return res.status(400).json({ message: "Email and WhatsApp are required." });
+    }
+
+    const subscription = await subscriptionPrivateService.createSubscription({
+      email_subscription,
+      whats_app_subscription,
+    });
+
+    res.status(201).json(subscription);
+  } catch (error) {
+    console.error(`Error creating subscription: ${error.message}`);
+    res.status(500).json({ error: error.message });
+  }
+};
+
 
 export default {
   getAllSubscriptions,
   getTotalSubscriptions,
-  sharePostToSubscriptions
+  sharePostToSubscriptions,
+  updateSubscription,
+  deleteSubscription,
+  createSubscription
 };
