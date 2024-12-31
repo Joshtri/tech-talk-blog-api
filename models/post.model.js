@@ -22,7 +22,7 @@ const postSchema = new mongoose.Schema({
   },
   status_post: {
     type: String,
-    enum: ['draft', 'published'],
+    enum: ["draft", "published"],
     required: true,
   },
   coverImageUrl: {
@@ -48,12 +48,13 @@ const postSchema = new mongoose.Schema({
  * By setting `required: false`, we prevent validation errors that would occur if
  * slug is missing at the time of initial validation.
  */
-postSchema.pre('save', function (next) {
+postSchema.pre("save", function (next) {
   // Check if the slug is missing or if the title has been modified
   // If either condition is true, generate a new slug
-  if (!this.slug || this.isModified('title')) {
+  if (!this.slug || this.isModified("title")) {
     this.slug = createSlug(this.title);
   }
+
   next();
 });
 
@@ -69,8 +70,8 @@ postSchema.pre('save', function (next) {
 function createSlug(title) {
   return title
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric characters with hyphens
-    .replace(/^-+|-+$/g, ''); // Remove leading or trailing hyphens
+    .replace(/[^a-z0-9]+/g, "-") // Replace non-alphanumeric characters with hyphens
+    .replace(/^-+|-+$/g, ""); // Remove leading or trailing hyphens
 }
 
 export default mongoose.model("Post", postSchema);
