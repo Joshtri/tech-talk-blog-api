@@ -9,4 +9,4 @@ const createSubscription = async (subscriptionData) => {
 
 export default {
     createSubscription
-}
+};
