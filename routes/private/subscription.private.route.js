@@ -9,4 +9,12 @@ subscriptionCmsRoute.get("/subscription", subscriptionPrivateController.getAllSu
 // Rute untuk mendapatkan total subscription
 subscriptionCmsRoute.get("/subscription-total", subscriptionPrivateController.getTotalSubscriptions);
 
+subscriptionCmsRoute.post("/share-post", subscriptionPrivateController.sharePostToSubscriptions);
+
+subscriptionCmsRoute.post("/subscription", subscriptionPrivateController.createSubscription);
+
+subscriptionCmsRoute.put("/subscription/:id", subscriptionPrivateController.updateSubscription);
+
+subscriptionCmsRoute.delete("/subscription/:id", subscriptionPrivateController.deleteSubscription);
+
 export default subscriptionCmsRoute;
