@@ -10,6 +10,11 @@ const getAllSubscriptions = async () => {
   }
 };
 
+const getSubscriptionByIdForCMS = async (id) => {
+  return await subscriptionPrivateRepository.findSubscriptionById(id);
+};
+
+
 const getTotalSubscriptions = async () => {
   try {
     const totalSubscriptions = await subscriptionPrivateRepository.getTotalSubscription();
@@ -24,8 +29,20 @@ const updateExistingSubscription = async (id, postData) => {
   return await subscriptionPrivateRepository.updateSubscription(id, postData);
 };
 
+const deleteSubscriptionById = async (id) => {
+  return await subscriptionPrivateRepository.deleteSubscription(id);
+};
+
+const createSubscription = async(subscriptionData)=>{
+  return await subscriptionPrivateRepository.createSubscription(subscriptionData);
+};
+
+
 export default {
   getAllSubscriptions,
   getTotalSubscriptions,
-  updateExistingSubscription
+  updateExistingSubscription,
+  deleteSubscriptionById,
+  getSubscriptionByIdForCMS,
+  createSubscription
 };
