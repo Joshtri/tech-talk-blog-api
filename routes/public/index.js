@@ -4,6 +4,8 @@ import postPublicRoute from "./post.public.route.js";
 import likePublicRoute from "./like.public.route.js";
 import commentPublicRoute from "./comment.public.route.js";
 import chatPublicRoute from "./chat.public.route.js";
+// import maintenancePrivateRoute from "../private/maintenance.private.route.js";
+import maintenancePublicRoute from "./maintenance.public.route.js";
 
 const publicRoutes = express.Router();
 
@@ -13,6 +15,9 @@ publicRoutes.use("/", postPublicRoute); // Post routes
 publicRoutes.use("/", likePublicRoute);
 publicRoutes.use("/", commentPublicRoute);
 publicRoutes.use("/", chatPublicRoute);
+
+//
+publicRoutes.use("/", maintenancePublicRoute);
 
 
 export default publicRoutes;
