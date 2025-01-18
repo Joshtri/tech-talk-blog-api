@@ -2,7 +2,7 @@
 
 export const corsOptions = {
     origin: (origin, callback) => {
-        const allowedOrigins = ["http://localhost:5173", "https://tech-talks-blog.com", "http://localhost:3000", "https://tech-talk-cms.vercel.app", "https://tech-talk-demo-ashy.vercel.app"];
+        const allowedOrigins = ["http://localhost:5173", "https://tech-talks-blog.com", "http://localhost:3000", "https://tech-talk-cms.vercel.app", "https://tech-talk-demo-ashy.vercel.app", "https://tech-talk-blog-next15.vercel.app"];
         
         // Check if the origin is in the allowed origins list or is undefined (e.g., Postman or server-side requests)
         if (allowedOrigins.includes(origin) || !origin) {
