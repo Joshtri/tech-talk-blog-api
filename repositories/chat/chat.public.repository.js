@@ -18,4 +18,4 @@ export default {
   getAllMessages,
   createMessage,
   deleteAllMessagesFromDB
-}
+};

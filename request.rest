@@ -31,3 +31,19 @@ GET http://localhost:5000/api/voice
 
 ###
 GET http://localhost:5000/api/comment/count/6694de685e80eb615ac9f6e8
+
+
+###
+POST http://localhost:5000/api/cms/auth/signup
+Content-Type: application/json
+
+{
+    "username": "yosrygaming@gmail.com",
+    "password": "12345678Az@",
+    "role": "admin"
+}   
+
+
+
+###
+GET http://localhost:5000/api/post

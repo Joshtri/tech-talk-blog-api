@@ -8,7 +8,7 @@ const commentPublicRoute = express.Router();
 commentPublicRoute.get("/comment/:id", commentPublicController.getCommentByIdPost);
 commentPublicRoute.post("/comment", commentPublicController.postComment);
 
-commentPublicRoute.get("/comment/count/:id", commentPublicController.countCommentById);
+commentPublicRoute.get("/comment/count/:id", commentPublicController.countCommentByPostId);
 
 
 export default commentPublicRoute;
