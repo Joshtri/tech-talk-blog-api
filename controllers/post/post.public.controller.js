@@ -6,19 +6,19 @@ import { postPublicService } from "../../services/post/index.js";
 const getPosts = async (req, res) => {
   try {
     const posts = await postPublicService.getPostsService();
+    const plainPosts = posts.map((post) => post.toObject());
 
-    // Hitung komentar tiap post tanpa mengubah struktur post lainnya
-    const commentCounts = await Promise.all(
-      posts.map((post) =>
-        commentPublicService.countCommentsByPostIdService(post.id)
-      )
+    const postsWithCounts = await Promise.all(
+      plainPosts.map(async (post) => {
+        const count = await commentPublicService.countCommentsByPostIdService(
+          post._id
+        );
+        return {
+          ...post,
+          commentCount: count,
+        };
+      })    
     );
-
-    // Gabungkan hasil count dengan post tanpa merusak struktur
-    const postsWithCounts = posts.map((post, index) => ({
-      ...post,
-      commentCount: commentCounts[index],
-    }));
 
     res.json(postsWithCounts);
   } catch (error) {
