@@ -1,51 +1,15 @@
 // controllers/post.controller.js
 // import { getPostsService, getPostByIdService, getPostPreviewService } from "../services/post.public.service.js";
-import commentPublicService from "../../services/comment/comment.public.service.js";
 import { postPublicService } from "../../services/post/index.js";
 
 const getPosts = async (req, res) => {
   try {
     const posts = await postPublicService.getPostsService();
-
-    // Ambil count komentar untuk setiap post
-    const postsWithCounts = await Promise.all(
-      posts.map(async (post) => {
-        const count = await commentPublicService.countCommentsByPostIdService(post.id);
-        return {
-          ...post,
-          commentCount: count,
-        };
-      })
-    );
-
-    res.json(postsWithCounts);
+    res.json(posts);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
-
-// const getPostsWithCommentCount = async (req, res) => {
-//   try {
-//     const posts = await postPublicService.getPostsService();
-
-//     // Ambil count komentar untuk setiap post
-//     const postsWithCounts = await Promise.all(
-//       posts.map(async (post) => {
-//         const count = await commentPublicService.countCommentsByPostIdService(post.id);
-//         return {
-//           ...post,
-//           commentCount: count,
-//         };
-//       })
-//     );
-
-//     res.json(postsWithCounts);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
-
 
 const getPostById = async (req, res) => {
   try {
