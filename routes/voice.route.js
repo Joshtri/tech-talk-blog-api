@@ -10,7 +10,7 @@ const upload = multer({ storage: storage });
 
 // Voice message routes
 
-router.get('/voice', getVoice)
-router.post('/voice', upload.single('voice'), handleUploadVoice);
+// router.get('/voice', getVoice)
+// router.post('/voice', upload.single('voice'), handleUploadVoice);
 
 export default router;

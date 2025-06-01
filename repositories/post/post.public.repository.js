@@ -6,7 +6,7 @@ import Post from "../../models/post.model.js";
 // };
 
 const findAllPublishedPosts = async () => {
-  return await Post.find({ status_post: "published" }).sort({ createdAt: -1 }); // Sort descending by createdAt
+  return await Post.find({ status_post: "published" }); // Sort descending by createdAt
 };
 
 const findPostById = async (id) => {
